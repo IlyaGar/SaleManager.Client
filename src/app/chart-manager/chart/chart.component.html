@@ -1,0 +1,65 @@
+<div  class="chart-container">
+    <!-- <div class="filter-container">
+        <label>
+            Time Period:
+            <select [(ngModel)]="filter.intervalType" (change)="getFilteredData()">
+                <option *ngFor="let type of typeOptions" [value]="type">
+                    {{ type | capitalLetter }}
+                </option>
+            </select>
+        </label>       
+        <label>
+            Start Date:
+            <input type="date" [(ngModel)]="filter.startDate" (change)="getFilteredData()"/>
+        </label>
+        <label style="margin-left: 20px;">
+            End Date:
+            <input type="date" [(ngModel)]="filter.endDate" (change)="getFilteredData()"/>
+        </label>
+        <button (click)="resetZoom()">
+            Reset Zoom
+        </button>
+        <button mat-raised-button color="primary" (click)="openDialog()">
+            Add Sale
+        </button>
+    </div> -->
+
+    <div class="filter-container">
+        <mat-form-field appearance="outline">
+            <mat-label>Time Period</mat-label>
+            <mat-select [(ngModel)]="filter.intervalType" (selectionChange)="getFilteredData()">
+            <mat-option *ngFor="let type of typeOptions" [value]="type">
+                {{ type | capitalLetter }}
+            </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Start Date</mat-label>
+            <input matInput [matDatepicker]="startPicker" [(ngModel)]="filter.startDate" (dateChange)="getFilteredData()" />
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>End Date</mat-label>
+            <input matInput [matDatepicker]="endPicker" [(ngModel)]="filter.endDate" (dateChange)="getFilteredData()" />
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="button-group">
+            <button mat-raised-button (click)="resetZoom()">Reset Zoom</button>
+            <button mat-raised-button (click)="openDialog()">Add Sale</button>
+        </div>
+    </div>
+
+    <div>
+        <canvas baseChart
+                [data]="chartData"
+                [options]="chartOptions"
+                [legend]="true"
+                [type]="'bar'">
+        </canvas>
+    </div>
+</div>
